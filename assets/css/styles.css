@@ -1,0 +1,224 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    background: #f2f2f2;
+}
+/*--------------------------- common ------------------*/
+a {
+    text-decoration: none;
+}
+input {
+    outline: none;
+    border: none;
+}
+button {
+    background: none;
+    border: none;
+}
+input,
+textarea,
+select,
+button,
+a {
+    font-style: inherit;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+.active {
+    background: rgb(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 50%;
+}
+
+.player {
+    position: relative;
+}
+/* -------------------DashBoard------------------- */
+.dashboard {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgb(255, 228, 233);
+    border-radius: 0 0 20px 20px;
+    z-index: 100;
+}
+.dashboard__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 20px;
+}
+.dashboard-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.dashboard-top > * {
+    color: rgb(255, 84, 112);
+}
+.db-top__info {
+    text-align: center;
+}
+.db-top__info--brand {
+    font-weight: 500;
+    line-height: 2;
+}
+.db-top__info--name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.db__cd {
+    margin: 10px 0;
+    width: 200px;
+    object-fit: cover;
+}
+.db__cd img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+/* Control */
+.db-control {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 30px;
+    justify-content: space-between;
+}
+.db-control * {
+    color: #6f6f6f;
+}
+.db-control__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+.db-control__icon > i {
+    padding: 10px;
+    font-size: 1.4rem;
+}
+.db-control i:active {
+    background: rgb(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.db-control__play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    background: rgb(255, 84, 112);
+    border-radius: 50%;
+}
+.db-control__play i {
+    color: #fff;
+}
+.db-control__play i:hover {
+    padding: 0;
+    background: none;
+}
+.db-control__play i.hidden {
+    display: none;
+}
+
+/* Progress */
+.progress {
+    -webkit-appearance: none;
+    margin-top: 10px;
+    width: 100%;
+    height: 3px;
+}
+.progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 5px;
+    background: rgb(253, 73, 103);
+    transition: all 0.2s;
+}
+.progress:hover::-webkit-slider-thumb {
+    height: 15px;
+    border-radius: 50%;
+}
+
+/* ------------------Play List------------------- */
+
+.list-player {
+    margin-top: 370px;
+    padding: 20px 20px;
+    height: 100vh;
+}
+.list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.list-card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 15px;
+    opacity: 0.6;
+    transition: all 0.5s;
+}
+.list-card.active {
+    opacity: 1;
+    box-shadow: 8px 2px 10px rgb(0, 0, 0, 0.3);
+}
+.list-card.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.list-card div:nth-child(1) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.img-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+.img-item img {
+    width: 100%;
+}
+
+.info-item .card-title {
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+/* Animation */
+/* spinner */
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

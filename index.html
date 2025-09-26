@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./assets/css/reset.css" />
+        <link rel="stylesheet" href="./assets/css/styles.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <!-- font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <!--  icon -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <title>Music Player</title>
+    </head>
+    <body>
+        <div class="player">
+            <section class="dashboard">
+                <div class="dashboard__inner">
+                    <div class="dashboard-top">
+                        <div class="db-top__icon">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="db-top__info">
+                            <h3 class="db-top__info--brand">Now Playing</h3>
+                            <span class="db-top__info--name">Tên bài hát </span>
+                        </div>
+                        <div class="db-top__icon">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="db__cd">
+                        <img
+                            src="./assets/img/img-Amee.jpg"
+                            alt=""
+                            class="img-cd"
+                        />
+                    </div>
+                    <div class="db-control">
+                        <button class="db-control__icon db-control__replay">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                        <button class="db-control__icon db-control__next--left">
+                            <i class="fa-solid fa-backward"></i>
+                        </button>
+                        <button class="db-control__icon db-control__play">
+                            <i class="fa-solid fa-play"> </i>
+                            <i class="fa-solid fa-pause hidden"></i>
+                        </button>
+                        <button
+                            class="db-control__icon db-control__next--right"
+                        >
+                            <i class="fa-solid fa-forward"></i>
+                        </button>
+                        <button class="db-control__icon db-control__shuffle">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </button>
+                    </div>
+                    <div class="db-range"></div>
+                    <input
+                        type="range"
+                        name="range"
+                        class="progress"
+                        id="progress"
+                        value="0"
+                        step="1"
+                        min="0"
+                        max="100"
+                    />
+                    <audio src="" class="music"></audio>
+                </div>
+            </section>
+            <!-- Player List -->
+            <div class="list-player">
+                <section class="list-item"></section>
+            </div>
+        </div>
+
+        <script src="main/main.js"></script>
+    </body>
+</html>
