@@ -130,16 +130,15 @@ const app = {
             cd.style.width = newCdWidth > 0 ? newCdWidth + "px" : 0;
             listPlayer.style.top = newTop > 196 ? newTop + "px" : 196 + "px";
             cd.style.opacity = newCdWidth / cdWidth;
+            console.log(newTop);
             if (newTop <= 196) {
-                listPlayer.style.height =
-                    window.innerHeight - dashBoard.offsetHeight + "px";
+                listPlayer.style.height = window.innerHeight - 192 + "px";
                 listPlayer.style.overflowY = "auto";
             } else {
                 listPlayer.style.height = "auto";
                 listPlayer.style.overflowY = "visible";
             }
         };
-
         //xử lý cd quay
         const thumbCDaAnimate = thumbCd.animate(
             [
