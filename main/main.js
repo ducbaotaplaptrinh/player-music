@@ -248,10 +248,9 @@ const app = {
         });
         //xử lý khi click tự phát lại
         replayBtn.addEventListener("click", function () {
-            _this.isRandom = !_this.isRandom;
             _this.isPlaying = !_this.isPlaying;
             deleteActive();
-            replayBtn.classList.toggle("active", _this.isRandom);
+            replayBtn.classList.toggle("active", _this.isPlaying);
         });
         //xứ lý khi hết bài
         audio.onended = () => {
