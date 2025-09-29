@@ -1,5 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+const dashBoard = $(".dashboard");
 const name = $(".db-top__info--name");
 const audio = $(".music");
 const thumbCd = $(".img-cd");
@@ -13,9 +14,11 @@ const nextLeftBtn = $(".db-control__next--left");
 const shuffleBtn = $(".db-control__shuffle");
 const replayBtn = $(".db-control__replay");
 const controlsBtn = $$(".db-control__icon");
+const listPlayer = $(".list-player");
 const app = {
     currentIndex: 0,
     isRandom: false,
+    isPlaying: false,
     songs: [
         {
             name: "Mặt mộc ",
@@ -53,11 +56,23 @@ const app = {
             path: "./assets/audio/emlacogaivungcao.mp3",
             img: "./assets/img/emlacogaivungcao.png",
         },
+        {
+            name: "Nắng ấm xa dần",
+            singer: "Sơn Tùng MTP",
+            path: "./assets/audio/nangamxadan.mp3",
+            img: "./assets/img/nangamxadan.jpg",
+        },
+        {
+            name: "Em là cô gái vùng cao ",
+            singer: "Mai Chi",
+            path: "./assets/audio/emlacogaivungcao.mp3",
+            img: "./assets/img/emlacogaivungcao.png",
+        },
     ],
     render: function () {
         const htmls = this.songs.map((song) => {
             return ` 
-                    <section class="list-card">
+                    <section class="list-card" >
                         <div>
                             <div class="img-item">
                                 <img
@@ -94,7 +109,6 @@ const app = {
         const cardSinger_main = $(".card-singer-main");
         const cardImg_main = $(".card-img-main");
         const _this = this;
-        const _isPlaying = false;
         const deleteActive = function () {
             controlsBtn.forEach((btn) => {
                 {
@@ -102,15 +116,30 @@ const app = {
                 }
             });
         };
+        //listPlayer.style.marginTop = dashBoard.offsetHeight + 10 + "px";
+        //listPlayer.style.top = dashBoard.offsetHeight + 10 + "px";
+        const topPlayer = dashBoard.offsetHeight + 10;
         //xử lý khi phóng to thu nhỏ
         const cdWidth = cd.offsetWidth;
-        document.onscroll = function () {
+        window.onscroll = function () {
             const scrollTop =
                 window.scrollY || document.documentElement.scrollTop;
             const newCdWidth = cdWidth - scrollTop;
+
+            const newTop = topPlayer - scrollTop;
             cd.style.width = newCdWidth > 0 ? newCdWidth + "px" : 0;
+            listPlayer.style.top = newTop > 196 ? newTop + "px" : 196 + "px";
             cd.style.opacity = newCdWidth / cdWidth;
+            if (newTop <= 196) {
+                listPlayer.style.height =
+                    window.innerHeight - dashBoard.offsetHeight + "px";
+                listPlayer.style.overflowY = "auto";
+            } else {
+                listPlayer.style.height = "auto";
+                listPlayer.style.overflowY = "visible";
+            }
         };
+
         //xử lý cd quay
         const thumbCDaAnimate = thumbCd.animate(
             [
@@ -164,7 +193,6 @@ const app = {
             cards[_this.currentIndex].classList.add("active");
             cards[_this.currentIndex].style.order = 0;
         };
-        const activeCard2 = function () {};
         //Khi tiến độ bài hát thay đổi
         audio.ontimeupdate = function () {
             if (audio.duration) {
@@ -186,18 +214,15 @@ const app = {
             card.addEventListener("click", () => {
                 let random = false;
                 random = !random;
-                thumbCDaAnimate.pause();
-                audio.src = `${this.songs[index].path}`;
-                thumbCd.src = `${this.songs[index].img}`;
-                name.textContent = this.songs[index].name;
-                audio.src = `${this.songs[index].path}`;
+                _this.currentIndex = index;
+                _this.loadCurrentSong();
                 cards.forEach((c) => {
                     c.classList.remove("active");
                 });
 
-                for (let i = 0; i < cards.length; i++) {
-                    cards[i].style.order = i + 1;
-                }
+                // for (let i = 0; i < cards.length; i++) {
+                //     cards[i].style.order = i + 1;
+                // }
                 card.classList.toggle("active", random);
                 card.style.order = 0;
                 playingBtn();
@@ -231,22 +256,20 @@ const app = {
         //xử lý khi click tự chuyển bài
         shuffleBtn.addEventListener("click", () => {
             deleteActive();
-            this.isRandom = !this.isRandom;
-            shuffleBtn.classList.toggle("active", this.isRandom);
+            _this.isRandom = !_this.isRandom;
+            shuffleBtn.classList.toggle("active", _this.isRandom);
         });
         //xử lý khi click tự phát lại
         replayBtn.addEventListener("click", function () {
-            this.isRandom = !this.isRandom;
-            this._isPlaying = true;
-            _this.replaySong();
+            _this.isRandom = !_this.isRandom;
+            _this.isPlaying = !_this.isPlaying;
             deleteActive();
-            replayBtn.classList.toggle("active", this.isRandom);
+            replayBtn.classList.toggle("active", _this.isRandom);
         });
         //xứ lý khi hết bài
         audio.onended = () => {
-            if (_isPlaying) {
-                _this.replaySong();
-                play.click();
+            if (this.isPlaying) {
+                _this.rePlaySong();
             } else {
                 nextRightBtn.click();
                 pauseBtn();
@@ -260,8 +283,8 @@ const app = {
 
     loadCurrentSong: function () {
         name.textContent = this.currentSong.name;
-        audio.src = `${this.currentSong.path}`;
-        thumbCd.src = `${this.currentSong.img}`;
+        audio.src = this.currentSong.path;
+        thumbCd.src = this.currentSong.img;
     },
 
     nextSong: function () {
@@ -280,22 +303,21 @@ const app = {
     },
     shuffleSong: function () {
         let newIndex;
-        let arr = [];
         do {
             newIndex = Math.floor(Math.random() * this.songs.length);
-            for (let i = 0; nextRightBtn.click(); i++) {
-                arr[i] = newIndex;
-                console.log(arr[i]);
-            }
         } while (newIndex === this.currentIndex);
         this.currentIndex = newIndex;
+
         this.loadCurrentSong();
     },
-    replaySong: function () {
+    rePlaySong: function () {
         let newIndex = this.currentIndex;
         this.currentIndex = newIndex;
         this.loadCurrentSong();
+        audio.play();
     },
+
+    //set chieu cao cua list player
 
     start: function () {
         //Định nghĩa thuôc tính ojb
@@ -303,7 +325,6 @@ const app = {
         //Tải thông tin bài hát đầu tiên
         this.loadCurrentSong();
         this.render();
-
         // Lắng nghe xử lý các sựu kiện (DOM events )
         this.handleEvent();
     },

@@ -7,10 +7,12 @@ html {
     overflow-x: hidden;
 }
 body {
+    position: relative;
     font-family: "Poppins", sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
     background: #f2f2f2;
+    height: 2000px;
 }
 /*--------------------------- common ------------------*/
 a {
@@ -33,11 +35,6 @@ a {
     font-family: inherit;
     -webkit-tap-highlight-color: transparent;
 }
-.active {
-    background: rgb(0, 0, 0, 0.3);
-    backdrop-filter: blur(15px);
-    border-radius: 50%;
-}
 
 .player {
     position: relative;
@@ -46,7 +43,9 @@ a {
 .dashboard {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
+    height: auto;
     background: rgb(255, 228, 233);
     border-radius: 0 0 20px 20px;
     z-index: 100;
@@ -108,6 +107,11 @@ a {
     width: 30px;
     height: 30px;
 }
+.db-control__icon.active {
+    background: rgb(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 50%;
+}
 .db-control__icon > i {
     padding: 10px;
     font-size: 1.4rem;
@@ -159,13 +163,19 @@ a {
     height: 15px;
     border-radius: 50%;
 }
-
 /* ------------------Play List------------------- */
 
 .list-player {
-    margin-top: 370px;
+    position: fixed;
+    left: 0;
+    top: 382px;
     padding: 20px 20px;
-    height: 100vh;
+    width: 100%;
+    box-shadow: -5px -20px 30px rgb(0, 0, 0, 0.2);
+    border-radius: 15px 15px 0 0;
+    background: #fff;
+    max-height: calc(100vh - 196px);
+    overflow-y: auto;
 }
 .list-item {
     display: flex;
