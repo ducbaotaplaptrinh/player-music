@@ -134,12 +134,9 @@ const app = {
                 listPlayer.style.height =
                     window.innerHeight - dashBoard.offsetHeight + "px";
                 listPlayer.style.overflowY = "auto";
-                document.body.style.overflow = "hidden";
             } else {
                 listPlayer.style.height = "auto";
                 listPlayer.style.overflowY = "visible";
-
-                document.body.style.overflowY = "auto";
             }
         };
 
