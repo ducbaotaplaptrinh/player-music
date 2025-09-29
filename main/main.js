@@ -86,7 +86,7 @@ const app = {
                                 <h4 class="card-singer" title="Tác giả">${song.singer}</h4>
                             </div>
                         </div>
-                        <div class="extend">
+                        <div class="option">
                             <i class="fa-solid fa-ellipsis"></i>
                         </div>
                     </section>`;
@@ -116,8 +116,7 @@ const app = {
                 }
             });
         };
-        //listPlayer.style.marginTop = dashBoard.offsetHeight + 10 + "px";
-        //listPlayer.style.top = dashBoard.offsetHeight + 10 + "px";
+
         const topPlayer = dashBoard.offsetHeight + 10;
         //xử lý khi phóng to thu nhỏ
         const cdWidth = cd.offsetWidth;
@@ -130,13 +129,13 @@ const app = {
             cd.style.width = newCdWidth > 0 ? newCdWidth + "px" : 0;
             listPlayer.style.top = newTop > 196 ? newTop + "px" : 196 + "px";
             cd.style.opacity = newCdWidth / cdWidth;
-            console.log(newTop);
             if (newTop <= 196) {
                 listPlayer.style.height = window.innerHeight - 192 + "px";
-                listPlayer.style.overflowY = "auto";
+                //listPlayer.style.overflowY = "auto";
             } else {
-                listPlayer.style.height = "auto";
-                listPlayer.style.overflowY = "visible";
+                //listPlayer.style.height = "auto";
+                // listPlayer.style.overflowY = "visible";
+                listPlayer.style.overflowY = "auto";
             }
         };
         //xử lý cd quay
@@ -210,7 +209,7 @@ const app = {
 
         //xử lý khi click vào card
         cards.forEach((card, index) => {
-            card.addEventListener("click", () => {
+            card.addEventListener("click", (e) => {
                 let random = false;
                 random = !random;
                 _this.currentIndex = index;
@@ -219,13 +218,17 @@ const app = {
                     c.classList.remove("active");
                 });
 
-                // for (let i = 0; i < cards.length; i++) {
-                //     cards[i].style.order = i + 1;
-                // }
                 card.classList.toggle("active", random);
-                card.style.order = 0;
                 playingBtn();
                 audio.play();
+
+                if (e.target.closest(".option")) {
+                }
+                card.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+                console.log(card);
             });
         });
         //xử lý khi chuyển bài
@@ -316,6 +319,13 @@ const app = {
         audio.play();
     },
 
+    // scrollCard: function () {
+    //     this.handleEvent.cards.scrollIntoView({
+    //         behavior: "smooth",
+    //         block: "center",
+    //     });
+    //     console.log(this.handleEvent.cards);
+    // },
     //set chieu cao cua list player
 
     start: function () {
