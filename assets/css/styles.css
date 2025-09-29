@@ -35,7 +35,12 @@ a {
     font-family: inherit;
     -webkit-tap-highlight-color: transparent;
 }
-
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* số dòng tối đa */
+    overflow: hidden;
+}
 .player {
     position: relative;
 }
@@ -224,6 +229,15 @@ a {
 .info-item .card-title {
     font-weight: 600;
     padding-bottom: 5px;
+    white-space: nowrap; /* Không xuống dòng */
+    overflow: hidden; /* Ẩn phần dư */
+    text-overflow: ellipsis; /* Hiện dấu ... */
+}
+.info-item .card-singer {
+}
+.option {
+    padding: 10px;
+    border-radius: 50%;
 }
 
 /* Animation */

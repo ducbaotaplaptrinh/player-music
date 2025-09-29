@@ -56,18 +56,6 @@ const app = {
             path: "./assets/audio/emlacogaivungcao.mp3",
             img: "./assets/img/emlacogaivungcao.png",
         },
-        {
-            name: "Nắng ấm xa dần",
-            singer: "Sơn Tùng MTP",
-            path: "./assets/audio/nangamxadan.mp3",
-            img: "./assets/img/nangamxadan.jpg",
-        },
-        {
-            name: "Em là cô gái vùng cao ",
-            singer: "Mai Chi",
-            path: "./assets/audio/emlacogaivungcao.mp3",
-            img: "./assets/img/emlacogaivungcao.png",
-        },
     ],
     render: function () {
         const htmls = this.songs.map((song) => {
@@ -82,8 +70,8 @@ const app = {
                                 />
                             </div>
                             <div class="info-item">
-                                <p class="card-title">${song.name}</p>
-                                <h4 class="card-singer" title="Tác giả">${song.singer}</h4>
+                                <p class="card-title line-clamp-1">${song.name}</p>
+                                <h4 class="card-singer line-clamp-1" title="Tác giả">${song.singer}</h4>
                             </div>
                         </div>
                         <div class="option">
@@ -131,10 +119,7 @@ const app = {
             cd.style.opacity = newCdWidth / cdWidth;
             if (newTop <= 196) {
                 listPlayer.style.height = window.innerHeight - 192 + "px";
-                //listPlayer.style.overflowY = "auto";
             } else {
-                //listPlayer.style.height = "auto";
-                // listPlayer.style.overflowY = "visible";
                 listPlayer.style.overflowY = "auto";
             }
         };
@@ -184,12 +169,8 @@ const app = {
         const activeCard = function () {
             cards.forEach((c) => {
                 c.classList.remove("active");
-                for (let i = 0; i < cards.length; i++) {
-                    cards[i].style.order = i + 1;
-                }
             });
             cards[_this.currentIndex].classList.add("active");
-            cards[_this.currentIndex].style.order = 0;
         };
         //Khi tiến độ bài hát thay đổi
         audio.ontimeupdate = function () {
@@ -210,27 +191,29 @@ const app = {
         //xử lý khi click vào card
         cards.forEach((card, index) => {
             card.addEventListener("click", (e) => {
-                let random = false;
-                random = !random;
-                _this.currentIndex = index;
-                _this.loadCurrentSong();
-                cards.forEach((c) => {
-                    c.classList.remove("active");
-                });
-
-                card.classList.toggle("active", random);
-                playingBtn();
-                audio.play();
-
-                if (e.target.closest(".option")) {
+                if (e.target.closest(".list-card.active")) {
+                } else if (e.target.closest(".option")) {
+                } else {
+                    let random = false;
+                    random = !random;
+                    _this.currentIndex = index;
+                    _this.loadCurrentSong();
+                    cards.forEach((c) => {
+                        c.classList.remove("active");
+                    });
+                    card.classList.toggle("active", random);
+                    playingBtn();
+                    audio.play();
+                    cardView();
                 }
-                card.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                });
-                console.log(card);
             });
         });
+        const cardView = function () {
+            cards[_this.currentIndex].scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        };
         //xử lý khi chuyển bài
         nextRightBtn.addEventListener("click", () => {
             if (this.isRandom) {
@@ -241,6 +224,7 @@ const app = {
 
             activeCard();
             playingBtn();
+            cardView();
             audio.play();
         });
         //xử lý khi quay lại bài cũ
@@ -253,6 +237,7 @@ const app = {
 
             activeCard();
             playingBtn();
+            cardView();
             audio.play();
         });
         //xử lý khi click tự chuyển bài
